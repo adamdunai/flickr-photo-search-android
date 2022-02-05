@@ -53,6 +53,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
     implementation "androidx.core:core-ktx:$rootProject.coreVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerviewVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "com.google.dagger:hilt-android:$rootProject.daggerVersion"
