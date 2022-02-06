@@ -14,3 +14,15 @@
 
 ![Example image](/docs/example.png)
 > A kép csak látványterv
+
+### API kulcs :key:
+
+Az alkalmazás működéséhez szükség van egy Flickr API kulcsra. A kulcs beszerzéséhez az alábbi linken találsz információt.
+- [Flickr](https://www.flickr.com/services/apps/create/apply/)
+
+Miután megszerezted a kulcsot, állítsd be a `gradle.properties` fájlban az alábbi módon:
+
+```
+# Flickr API key
+FLICKR_API_KEY=<kulcs>
+```
