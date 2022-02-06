@@ -20,7 +20,7 @@ buildscript {
         extjUnitVersion = '1.1.3'
         gradleVersion = '7.0.4'
         jUnitVersion = '4.13.2'
-        kotlinVersion = '1.6.10'
+        kotlinVersion = '1.5.31'
         ktlintVersion = '0.43.2'
         logcatVersion = '0.1'
         materialVersion = '1.5.0'
