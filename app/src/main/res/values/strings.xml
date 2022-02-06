@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Flickr Photo Search</string>
+
+    <string name="photo_search_title">Flickr Photo Search</string>
+    <string name="photo_search_search_hint">Keresés</string>
 </resources>
