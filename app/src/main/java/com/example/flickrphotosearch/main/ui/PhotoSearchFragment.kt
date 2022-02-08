@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.flickrphotosearch.R
 import com.example.flickrphotosearch.common.extension.setOnActionDone
@@ -15,6 +17,7 @@ import com.example.flickrphotosearch.main.ui.adapter.SearchAdapter
 import com.example.flickrphotosearch.main.ui.viewmodel.PhotoSearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -51,6 +54,10 @@ class PhotoSearchFragment : BaseFragment() {
             }
         }
 
+        binding.retryButton.setOnClickListener {
+            searchAdapter.retry()
+        }
+
         with(binding.searchRecyclerView) {
             layoutManager = GridLayoutManager(getMainActivity(), 2)
             adapter = searchAdapter
@@ -58,6 +65,21 @@ class PhotoSearchFragment : BaseFragment() {
 
         lifecycleScope.launch {
             viewModel.photosDataFlow.collectLatest(searchAdapter::submitData)
+        }
+
+        // TODO refactor
+        lifecycleScope.launch {
+            searchAdapter.loadStateFlow.collect { loadState ->
+                with(binding) {
+                    noResultTextView.isVisible =
+                        loadState.refresh is LoadState.NotLoading && searchAdapter.itemCount == 0
+                    searchRecyclerView.isVisible =
+                        loadState.source.refresh is LoadState.NotLoading || loadState.mediator?.refresh is LoadState.NotLoading
+                    progressBar.isVisible = loadState.mediator?.refresh is LoadState.Loading
+                    retryButton.isVisible =
+                        loadState.mediator?.refresh is LoadState.Error && searchAdapter.itemCount == 0
+                }
+            }
         }
     }
 

@@ -4,4 +4,6 @@
 
     <string name="photo_search_title">Flickr Photo Search</string>
     <string name="photo_search_search_hint">Keresés</string>
+    <string name="photo_search_no_result">Nincs találat</string>
+    <string name="photo_search_retry_button">Újra</string>
 </resources>
