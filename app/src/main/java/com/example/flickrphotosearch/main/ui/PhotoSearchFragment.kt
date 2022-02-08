@@ -4,18 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.ExperimentalPagingApi
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.flickrphotosearch.R
 import com.example.flickrphotosearch.common.extension.setOnActionDone
 import com.example.flickrphotosearch.databinding.FragmentPhotoSearchBinding
 import com.example.flickrphotosearch.main.ui.adapter.SearchAdapter
+import com.example.flickrphotosearch.main.ui.viewmodel.PhotoSearchViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
+@ExperimentalPagingApi
+@AndroidEntryPoint
 class PhotoSearchFragment : BaseFragment() {
 
     private lateinit var searchAdapter: SearchAdapter
 
     private var _binding: FragmentPhotoSearchBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: PhotoSearchViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,13 +45,19 @@ class PhotoSearchFragment : BaseFragment() {
 
         setTitle(R.string.photo_search_title)
 
-        binding.searchTextInputEditText.setOnActionDone {
-            // TODO search for images
+        with(binding.searchTextInputEditText) {
+            this.setOnActionDone {
+                viewModel.searchPhoto(this.text?.trim().toString())
+            }
         }
 
         with(binding.searchRecyclerView) {
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = GridLayoutManager(getMainActivity(), 2)
             adapter = searchAdapter
+        }
+
+        lifecycleScope.launch {
+            viewModel.photosDataFlow.collectLatest(searchAdapter::submitData)
         }
     }
 
