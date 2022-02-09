@@ -9,12 +9,15 @@ import com.example.flickrphotosearch.R
 import com.example.flickrphotosearch.common.ui.adapter.BindableBaseRecyclerViewAdapter
 import com.example.flickrphotosearch.databinding.ViewSearchItemBinding
 import com.example.flickrphotosearch.main.model.SearchItemUiModel
+import com.example.flickrphotosearch.main.ui.adapter.SearchAdapter
 
 class SearchItemView :
     FrameLayout,
     BindableBaseRecyclerViewAdapter.Bindable<SearchItemUiModel> {
 
     private val binding = ViewSearchItemBinding.inflate(LayoutInflater.from(context), this)
+
+    var onItemClickListener: SearchAdapter.OnItemClickListener? = null
 
     constructor(context: Context) : super(context)
 
@@ -36,6 +39,10 @@ class SearchItemView :
     override fun bind(model: SearchItemUiModel) {
         binding.itemImageView.load(model.photoUrl) {
             crossfade(true)
+        }
+
+        setOnClickListener {
+            onItemClickListener?.onItemClicked(model.photoId)
         }
     }
 }

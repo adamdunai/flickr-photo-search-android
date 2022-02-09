@@ -9,6 +9,24 @@
         android:id="@+id/photoSearchFragment"
         android:name="com.example.flickrphotosearch.main.ui.PhotoSearchFragment"
         android:label="PhotoSearchFragment"
-        tools:layout="@layout/fragment_photo_search" />
+        tools:layout="@layout/fragment_photo_search">
+        <action
+            android:id="@+id/action_photoSearchFragment_to_photoDetailFragment"
+            app:destination="@id/photoDetailFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/photoDetailFragment"
+        android:name="com.example.flickrphotosearch.main.ui.PhotoDetailsFragment"
+        android:label="PhotoDetailFragment"
+        tools:layout="@layout/fragment_photo_details">
+        <argument
+            android:name="photoId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
