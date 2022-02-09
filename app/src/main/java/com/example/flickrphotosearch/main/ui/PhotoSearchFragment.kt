@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
@@ -75,7 +77,9 @@ class PhotoSearchFragment : BaseFragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.photosDataFlow.collectLatest(searchAdapter::submitData)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.photosDataFlow.collectLatest(searchAdapter::submitData)
+            }
         }
 
         // TODO refactor
