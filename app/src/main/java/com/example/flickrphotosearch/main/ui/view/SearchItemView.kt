@@ -25,7 +25,7 @@ class SearchItemView :
 
     init {
         layoutParams = LayoutParams(
-            LayoutParams.WRAP_CONTENT,
+            LayoutParams.MATCH_PARENT,
             LayoutParams.WRAP_CONTENT
         )
 
