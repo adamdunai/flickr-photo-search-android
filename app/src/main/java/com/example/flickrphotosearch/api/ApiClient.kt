@@ -11,5 +11,6 @@ interface ApiClient {
         @Query("text") searchQuery: String,
         @Query("page") page: Int,
         @Query("per_page") itemsPerPage: Int,
+        @Query("sort") sort: String = "interestingness-desc",
     ): SearchResponseApiModel
 }
