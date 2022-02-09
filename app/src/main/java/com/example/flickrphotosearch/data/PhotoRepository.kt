@@ -6,12 +6,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import com.example.flickrphotosearch.api.ApiClient
+import com.example.flickrphotosearch.api.model.PhotoDetailsResponseApiModel
 import com.example.flickrphotosearch.database.AppDatabase
 import com.example.flickrphotosearch.database.model.PhotoDataModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-@ExperimentalPagingApi
 class PhotoRepository @Inject constructor(
     private val apiClient: ApiClient,
     private val appDatabase: AppDatabase,
@@ -25,6 +25,7 @@ class PhotoRepository @Inject constructor(
         private const val DEFAULT_PAGE_SIZE = 20
     }
 
+    @ExperimentalPagingApi
     fun getSearchResultStream(query: String): Flow<PagingData<PhotoDataModel>> {
         val pagingSourceFactory = { appDatabase.photoDao().getPhotoPagingSource() }
 
@@ -43,4 +44,7 @@ class PhotoRepository @Inject constructor(
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }
+
+    suspend fun getPhotoDetails(photoId: String): PhotoDetailsResponseApiModel =
+        apiClient.getPhotoDetails(photoId).photo
 }

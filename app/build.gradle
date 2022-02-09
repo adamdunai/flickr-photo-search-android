@@ -40,6 +40,7 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled = true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -100,6 +101,8 @@ dependencies {
     testImplementation "junit:junit:$rootProject.jUnitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.extjUnitVersion"
+
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$rootProject.desugarVersion"
 }
 
 task ktlint(type: JavaExec, group: "verification") {
