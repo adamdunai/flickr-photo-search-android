@@ -26,24 +26,20 @@ class PhotoRepository @Inject constructor(
     }
 
     @ExperimentalPagingApi
-    fun getSearchResultStream(query: String): Flow<PagingData<PhotoDataModel>> {
-        val pagingSourceFactory = { appDatabase.photoDao().getPhotoPagingSource() }
-
-        return Pager(
+    fun getSearchResultStream(query: String): Flow<PagingData<PhotoDataModel>> =
+        Pager(
             config = PagingConfig(
                 pageSize = DEFAULT_PAGE_SIZE,
-                initialLoadSize = DEFAULT_PAGE_SIZE,
-                prefetchDistance = DEFAULT_PAGE_SIZE * 2,
-                enablePlaceholders = false
+                initialLoadSize = DEFAULT_PAGE_SIZE
             ),
             remoteMediator = PhotoRemoteMediator(
                 query = query,
                 apiClient = apiClient,
                 appDatabase = appDatabase
             ),
-            pagingSourceFactory = pagingSourceFactory
-        ).flow
-    }
+        ) {
+            appDatabase.photoDao().getPhotoPagingSource()
+        }.flow
 
     suspend fun getPhotoDetails(photoId: String): PhotoDetailsResponseApiModel =
         apiClient.getPhotoDetails(photoId).photo

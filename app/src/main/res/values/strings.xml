@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Flickr Photo Search</string>
+    <string name="app_name" translatable="false">Flickr Photo Search</string>
 
     <string name="photo_search_title">Flickr Photo Search</string>
-    <string name="photo_search_search_hint">Keresés</string>
-    <string name="photo_search_no_result">Nincs találat</string>
-    <string name="photo_search_retry_button">Újra</string>
+    <string name="photo_search_search_hint">Search</string>
+    <string name="photo_search_no_result">No results</string>
+    <string name="photo_search_retry_button">Reload</string>
 
-    <string name="photo_details_title">Részletek</string>
-    <string name="photo_details_error">Valami hiba történt</string>
-    <string name="photo_details_retry_button">Újra</string>
+    <string name="photo_details_title">Details</string>
+    <string name="photo_details_error">Something went wrong</string>
+    <string name="photo_details_retry_button">Reload</string>
 </resources>

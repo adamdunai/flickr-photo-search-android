@@ -3,10 +3,13 @@ package com.example.flickrphotosearch.common.extension
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 
-fun EditText.setOnActionDone(callOnActionDone: () -> Unit) {
+/**
+ * Syntactic sugar to add search IME action.
+ */
+fun EditText.setOnActionSearch(callOnActionSearch: (String) -> Unit) {
     setOnEditorActionListener { _, actionId, _ ->
-        if (EditorInfo.IME_ACTION_DONE == actionId) {
-            callOnActionDone()
+        if (EditorInfo.IME_ACTION_SEARCH == actionId) {
+            callOnActionSearch(text.toString())
         }
         false
     }

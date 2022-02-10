@@ -47,8 +47,9 @@ class PhotoSearchViewModel
         .cachedIn(viewModelScope)
 
     fun searchPhoto(query: String) {
-        if (savedStateHandle.get<String>(KEY_QUERY) != query) {
-            savedStateHandle.set(KEY_QUERY, query)
+        val queryString = query.trim()
+        if (savedStateHandle.get<String>(KEY_QUERY) != queryString) {
+            savedStateHandle.set(KEY_QUERY, queryString)
         }
     }
 }
