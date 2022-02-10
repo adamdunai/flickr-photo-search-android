@@ -13,7 +13,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.flickrphotosearch.R
-import com.example.flickrphotosearch.common.extension.setOnActionDone
+import com.example.flickrphotosearch.common.extension.setOnActionSearch
 import com.example.flickrphotosearch.databinding.FragmentPhotoSearchBinding
 import com.example.flickrphotosearch.main.navigation.MainNavigator
 import com.example.flickrphotosearch.main.ui.adapter.SearchAdapter
@@ -61,19 +61,17 @@ class PhotoSearchFragment : BaseFragment() {
 
         setTitle(R.string.photo_search_title)
 
-        with(binding.searchTextInputEditText) {
-            this.setOnActionDone {
-                viewModel.searchPhoto(this.text?.trim().toString())
+        with(binding) {
+            searchTextInputEditText.setOnActionSearch { text ->
+                viewModel.searchPhoto(text)
             }
-        }
 
-        binding.retryButton.setOnClickListener {
-            searchAdapter.retry()
-        }
+            retryButton.setOnClickListener { searchAdapter.retry() }
 
-        with(binding.searchRecyclerView) {
-            layoutManager = GridLayoutManager(getMainActivity(), 2)
-            adapter = searchAdapter
+            with(searchRecyclerView) {
+                layoutManager = GridLayoutManager(getMainActivity(), 2)
+                adapter = searchAdapter
+            }
         }
 
         lifecycleScope.launch {
