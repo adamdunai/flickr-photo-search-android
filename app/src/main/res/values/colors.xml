@@ -12,4 +12,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="search_no_result_text">@color/secondaryColor</color>
+
+    <color name="details_title">@color/secondaryColor</color>
+    <color name="details_error_text">@color/secondaryColor</color>
 </resources>

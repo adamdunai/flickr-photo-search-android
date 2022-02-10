@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.flickrphotosearch.R
 import com.example.flickrphotosearch.common.extension.setOnActionDone
 import com.example.flickrphotosearch.databinding.FragmentPhotoSearchBinding
+import com.example.flickrphotosearch.main.navigation.MainNavigator
 import com.example.flickrphotosearch.main.ui.adapter.SearchAdapter
 import com.example.flickrphotosearch.main.ui.viewmodel.PhotoSearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +23,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @ExperimentalPagingApi
@@ -31,6 +35,9 @@ class PhotoSearchFragment : BaseFragment() {
     private var _binding: FragmentPhotoSearchBinding? = null
     private val binding get() = _binding!!
     private val viewModel: PhotoSearchViewModel by viewModels()
+
+    @Inject
+    lateinit var navigator: MainNavigator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +51,13 @@ class PhotoSearchFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchAdapter = SearchAdapter(getMainActivity())
+        searchAdapter = SearchAdapter(getMainActivity()).apply {
+            onItemClickListener = object : SearchAdapter.OnItemClickListener {
+                override fun onItemClicked(photoId: String) {
+                    navigator.navigateToDetails(photoId)
+                }
+            }
+        }
 
         setTitle(R.string.photo_search_title)
 
@@ -64,7 +77,9 @@ class PhotoSearchFragment : BaseFragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.photosDataFlow.collectLatest(searchAdapter::submitData)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.photosDataFlow.collectLatest(searchAdapter::submitData)
+            }
         }
 
         // TODO refactor

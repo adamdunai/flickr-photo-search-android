@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/progress_bar_width_height"
+            android:layout_height="@dimen/progress_bar_width_height"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/errorLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/DetailsErrorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="@dimen/margin_padding_size_small"
+                android:text="@string/photo_details_error" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/photo_details_retry_button" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contentConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/margin_padding_size_small">
+
+            <com.github.chrisbanes.photoview.PhotoView
+                android:id="@+id/photoView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@id/horizontalHalfGuideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/test_search_item" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/horizontalHalfGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/titleTextView"
+                style="@style/DetailsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_padding_size_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontalHalfGuideline"
+                tools:text="Sled dog race" />
+
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_padding_size_small"
+                android:drawablePadding="@dimen/margin_padding_size_tiny"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_baseline_date_range_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                tools:text="2018. 01. 06." />
+
+            <TextView
+                android:id="@+id/viewersTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_padding_size_small"
+                android:drawablePadding="@dimen/margin_padding_size_tiny"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_baseline_visibility_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                tools:text="38635" />
+
+            <TextView
+                android:id="@+id/usernameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_padding_size_small"
+                android:drawablePadding="@dimen/margin_padding_size_tiny"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_baseline_person_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dateTextView"
+                tools:text="My Planet Experience" />
+
+            <HorizontalScrollView
+                android:id="@+id/chipScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/usernameTextView">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/tagChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_padding_size_small"
+                    app:singleLine="true" />
+
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_padding_size_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chipScrollView"
+                tools:text="Alaskan Malamutes (my first prize &quot;best smile&quot;!!!) at Retordica, Plateau de Retord, Cuvéry, Ain, France\n\nFor more than 25 years, an international dog sled race has been taking place in the wilderness of Plateau de Retord. Many mushers love this site to train their teams throughout the winter.\nThe sled dog racing is subdivided into several categories according to the number of dogs harnessed and in three subcategories according to the breed of dogs harnessed.\nIndeed, the faster Siberian Husky compete in a separate category, the other three breeds : Alaskan Malamute, Samoyed and Greenland dog run in the same category, while the so-called &quot;Nordic type&quot; dogs participate in their own category." />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</ScrollView>
