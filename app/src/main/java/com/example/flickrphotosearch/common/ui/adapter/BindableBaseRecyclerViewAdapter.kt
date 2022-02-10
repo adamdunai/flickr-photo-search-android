@@ -4,14 +4,16 @@ import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import com.example.flickrphotosearch.common.ui.view.ViewHolder
 
+/**
+ * Base adapter for RecyclerView, simplifies binding on [ViewHolder] items
+ */
 abstract class BindableBaseRecyclerViewAdapter<T : Any, V>(diffCallback: DiffUtil.ItemCallback<T>) :
     RecyclerViewAdapterBase<T, V>(diffCallback)
         where V : View,
               V : BindableBaseRecyclerViewAdapter.Bindable<T> {
 
     override fun onBindViewHolder(holder: ViewHolder<V>, position: Int) {
-        val uiModel = getItem(position)
-        uiModel?.let {
+        getItem(position)?.let {
             holder.view.bind(it)
         }
     }
