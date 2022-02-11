@@ -3,6 +3,7 @@
     <string name="photo_search_title">Flickr Kép Kereső</string>
     <string name="photo_search_search_hint">Keresés</string>
     <string name="photo_search_no_result">Nincs találat</string>
+    <string name="photo_search_error">Valami hiba történt</string>
     <string name="photo_search_retry_button">Újra</string>
 
     <string name="photo_details_title">Részletek</string>

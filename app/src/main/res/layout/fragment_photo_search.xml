@@ -47,16 +47,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchTextInputLayout" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/retryButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/errorLinearLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/photo_search_retry_button"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchTextInputLayout" />
+        app:layout_constraintTop_toBottomOf="@id/searchTextInputLayout">
+
+        <TextView
+            style="@style/SearchErrorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_padding_size_small"
+            android:text="@string/photo_search_error" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/photo_search_retry_button" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
