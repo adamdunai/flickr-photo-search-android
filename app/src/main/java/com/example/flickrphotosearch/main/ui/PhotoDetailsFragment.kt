@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.flickrphotosearch.R
 import com.example.flickrphotosearch.databinding.FragmentPhotoDetailsBinding
@@ -25,7 +24,6 @@ class PhotoDetailsFragment : BaseFragment() {
     private var _binding: FragmentPhotoDetailsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: PhotoDetailsViewModel by viewModels()
-    private val arguments: PhotoDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,10 +70,8 @@ class PhotoDetailsFragment : BaseFragment() {
         }
 
         binding.retryButton.setOnClickListener {
-            getPhotoDetails()
+            viewModel.getPhotoDetails()
         }
-
-        getPhotoDetails()
     }
 
     private fun showComponents(
@@ -88,10 +84,6 @@ class PhotoDetailsFragment : BaseFragment() {
             errorLinearLayout.isVisible = errorVisible
             contentConstraintLayout.isVisible = contentVisible
         }
-    }
-
-    private fun getPhotoDetails() {
-        viewModel.getPhotoDetails(arguments.photoId)
     }
 
     private fun initUiFromModel(model: PhotoDetailsUiModel) {

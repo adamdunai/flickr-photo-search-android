@@ -89,7 +89,7 @@ class PhotoSearchFragment : BaseFragment() {
                     searchRecyclerView.isVisible =
                         loadState.source.refresh is LoadState.NotLoading || loadState.mediator?.refresh is LoadState.NotLoading
                     progressBar.isVisible = loadState.mediator?.refresh is LoadState.Loading
-                    retryButton.isVisible =
+                    errorLinearLayout.isVisible =
                         loadState.mediator?.refresh is LoadState.Error && searchAdapter.itemCount == 0
                 }
             }
